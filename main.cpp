@@ -9,8 +9,10 @@ constexpr TGAColor yellow  = {  0, 200, 255, 255};
 
 void lineSegment(int ax, int bx, int ay, int by, TGAImage &framebuffer, TGAColor color) {
 	//Drawing line pixel by pixel (t is the slope)
-	for (int t = 0; t <= 1; t += 0.05) {
-	
+	for (float t = 0.; t <= 1.; t += 0.05) {
+		int xt = std::round(ax + t * (bx - ax));
+		int yt = std::round(ay + t * (by - ay));
+		framebuffer.set(xt, yt, color);
 	}
 }
 
@@ -29,6 +31,10 @@ int main(int argc, char** argv) {
 	framebuffer.set(ax, ay, white);
 	framebuffer.set(bx, by, white);
 	framebuffer.set(cx, cy, white);
+
+	lineSegment(ax, bx, ay, by, framebuffer, green);
+	lineSegment(bx, cx, by, cy, framebuffer, blue);
+	lineSegment(cx, ax, cy, ay, framebuffer, yellow);
 
 	//Saving the frame
 	framebuffer.write_tga_file("framebuffer.tga");
