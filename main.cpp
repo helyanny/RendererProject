@@ -13,7 +13,7 @@ void lineSegment(int ax, int bx, int ay, int by, TGAImage &framebuffer, TGAColor
 	   Making it as a function of x to account for amount of pixels needed
 	   at different lengths */
 	for (int xt = ax; xt <= bx; xt++) {
-		float t = (xt - ax)/(bx - ax);
+		float t = (xt - ax)/static_cast<float>(bx - ax);
 		int yt = std::round(ay + t * (by - ay));
 		framebuffer.set(xt, yt, color);
 	}
