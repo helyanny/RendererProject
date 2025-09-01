@@ -8,9 +8,12 @@ constexpr TGAColor blue    = {255, 128,  64, 255};
 constexpr TGAColor yellow  = {  0, 200, 255, 255};
 
 void lineSegment(int ax, int bx, int ay, int by, TGAImage &framebuffer, TGAColor color) {
-	//Drawing line pixel by pixel (t is the slope)
-	for (float t = 0.; t <= 1.; t += 0.02) {
-		int xt = std::round(ax + t * (bx - ax));
+
+	/* Drawing line pixel by pixel
+	   Making it as a function of x to account for amount of pixels needed
+	   at different lengths */
+	for (int xt = ax; xt <= bx; xt++) {
+		float t = (xt - ax)/(bx - ax);
 		int yt = std::round(ay + t * (by - ay));
 		framebuffer.set(xt, yt, color);
 	}
