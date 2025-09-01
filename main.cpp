@@ -12,7 +12,7 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 	//Swapping if the line is more vertical than horizontal
 	if (std::abs(bx - ax) < std::abs(by - ay)){
 		std::swap(ax, ay);
-                std::swap(bx, by);
+        std::swap(bx, by);
 	}
 
 	//Swapping in case first point is further right than second one
