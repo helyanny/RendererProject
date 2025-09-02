@@ -28,17 +28,18 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 	   at different lengths */
 
 	int yt = ay;
-	float error = 0; 
+	int error = 0; 
 
 	for (int xt = ax; xt <= bx; xt++) {
 		if (moreVertical) framebuffer.set(yt, xt, color);
 
 		else framebuffer.set(xt, yt, color);
 
-		error += std::abs((by - ay)/static_cast<float>(bx - ax));
-		if (error > 0.5) {
-			yt += by > ay ? 1 : 1;
-			error--;
+		// if error > .5 pixels then y increments
+		error += 2 * std::abs(by - ay);
+		if (error > (bx - ax)) {
+			yt += by > ay ? 1 : -1;
+			error -= 2 * (bx - ax);
 		}
 	}
 }
