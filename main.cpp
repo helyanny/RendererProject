@@ -10,9 +10,10 @@ constexpr TGAColor yellow  = {  0, 200, 255, 255};
 void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor color) {
 
 	//Swapping if the line is more vertical than horizontal
-	if (std::abs(bx - ax) < std::abs(by - ay)){
+	bool moreVertical = std::abs(ax - bx) < std::abs(ay - by);
+	if (moreVertical){
 		std::swap(ax, ay);
-        std::swap(bx, by);
+		std::swap(bx, by);
 	}
 
 	//Swapping in case first point is further right than second one
@@ -29,7 +30,7 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 		float t = (xt - ax)/static_cast<float>(bx - ax);
 		int yt = std::round(ay + t * (by - ay));
 
-		if (std::abs(bx - ax) < std::abs(by - ay)) framebuffer.set(yt, xt, color);
+		if (moreVertical) framebuffer.set(yt, xt, color);
 
 		else framebuffer.set(xt, yt, color);
 	}
