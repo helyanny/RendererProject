@@ -26,13 +26,14 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 	/* Drawing line pixel by pixel
 	   Making it as a function of x to account for amount of pixels needed
 	   at different lengths */
-	for (int xt = ax; xt <= bx; xt++) {
-		float t = (xt - ax)/static_cast<float>(bx - ax);
-		int yt = std::round(ay + t * (by - ay));
 
+	float yt = ay;
+	for (int xt = ax; xt <= bx; xt++) {
 		if (moreVertical) framebuffer.set(yt, xt, color);
 
 		else framebuffer.set(xt, yt, color);
+
+		yt = yt + (by - ay)/static_cast<float>(bx - ax);
 	}
 }
 
