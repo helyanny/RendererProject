@@ -35,7 +35,10 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 
 		else framebuffer.set(xt, yt, color);
 
-		// if error > .5 pixels then y increments
+		/* Error for increments of y
+		   Since loop is defaulted for lines that are not too steep, y increments
+		   don't naturally exceep 1 pixel *\
+
 		error += 2 * std::abs(by - ay);
 		if (error > (bx - ax)) {
 			yt += by > ay ? 1 : -1;
