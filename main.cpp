@@ -1,5 +1,8 @@
 #include <cmath>
 #include "tgaimage.h"
+#include "geometry.h"
+#include "model.h"
+#include <tuple>
 
 constexpr TGAColor white   = {255, 255, 255, 255}; // BGRA order
 constexpr TGAColor green   = {  0, 255,   0, 255};
@@ -47,6 +50,7 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 	}
 }
 
+std::tuple<int, int> wireframes
 
 int main(int argc, char** argv) {
 	//Making frame
