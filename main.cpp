@@ -10,6 +10,9 @@ constexpr TGAColor red     = {  0,   0, 255, 255};
 constexpr TGAColor blue    = {255, 128,  64, 255};
 constexpr TGAColor yellow  = {  0, 200, 255, 255};
 
+constexpr int width = 720;
+constexpr int height = 720;
+
 void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor color) {
 
 	//Swapping if the line is more vertical than horizontal
@@ -40,7 +43,7 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 
 		/* Error for increments of y
 		   Since loop is defaulted for lines that are not too steep, y increments
-		   don't naturally exceep 1 pixel */
+		   don't naturally exceed 1 pixel */
 
 		error += 2 * std::abs(by - ay);
 		if (error > (bx - ax)) {
@@ -50,7 +53,10 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 	}
 }
 
-std::tuple<int, int> wireframes
+std::tuple<int, int> wireframes(vec3 vector) {
+	auto projection = std::make_tuple(width / 2 * (vector.x + 1.0), height / 2 * (vector.y + 1.0));
+	return projection;
+}
 
 int main(int argc, char** argv) {
 	//Making frame
