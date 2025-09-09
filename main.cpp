@@ -59,24 +59,32 @@ std::tuple<int, int> wireframes(vec3 vector) {
 }
 
 int main(int argc, char** argv) {
-	//Making frame
-	constexpr int width  = 64;
-	constexpr int height = 64;
+
+	if (argc != 2) {
+		std::cerr << "Please run the program along with a model object" << std::endl;
+		return 1;
+	}
+
+
+	//Making frame and inserting points from image
+	Model model(argv[1]);
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
-	//Drawing points
-	int ax =  7, ay =  3;
-	int bx = 12, by = 37;
-	int cx = 62, cy = 53;
+	for (int i = 0; i < model.nfaces(); i++) {
+		auto [ax, ay] = wireframes(model.vert(i, 0));
+		auto [bx, by] = wireframes(model.vert(i, 1));
+		auto [cx, cy] = wireframes(model.vert(i, 2));
+	
+		lineSegment(ax, ay, bx, by, framebuffer, blue);
+		lineSegment(bx, by, cx, cy, framebuffer, blue);
+		lineSegment(cx, cy, ax, ay, framebuffer, blue);
+	}
 
-	framebuffer.set(ax, ay, white);
-	framebuffer.set(bx, by, white);
-	framebuffer.set(cx, cy, white);
-
-	lineSegment(ax, ay, bx, by, framebuffer, green);
-	lineSegment(bx, by, cx, cy, framebuffer, blue);
-	lineSegment(cx, cy, ax, ay, framebuffer, yellow);
-	lineSegment(ax, ay, cx, cy, framebuffer, red);
+	for (int i = 0; i < model.nfaces(); i++) {
+		vec3 vertice = model.vert(i);
+		auto [x, y] = wireframes(v);
+		framebuffer.set(x, y, white);
+	}
 
 	//Saving the frame
 	framebuffer.write_tga_file("framebuffer.tga");
