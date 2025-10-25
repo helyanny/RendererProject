@@ -53,9 +53,8 @@ void lineSegment(int ax, int ay, int bx, int by, TGAImage &framebuffer, TGAColor
 	}
 }
 
-std::tuple<int, int> wireframes(vec3 vector) {
-	auto projection = std::make_tuple(width / 2 * (vector.x + 1.0), height / 2 * (vector.y + 1.0));
-	return projection;
+std::tuple<int, int> wireframes(vec4 vector) {
+	return std::make_tuple(width / 2 * (vector.x + 1.0), height / 2 * (vector.y + 1.0));
 }
 
 int main(int argc, char** argv) {
@@ -81,8 +80,8 @@ int main(int argc, char** argv) {
 	}
 
 	for (int i = 0; i < model.nfaces(); i++) {
-		vec3 vertice = model.vert(i);
-		auto [x, y] = wireframes(v);
+		vec4 vertice = model.vert(i);
+		auto [x, y] = wireframes(vertice);
 		framebuffer.set(x, y, white);
 	}
 
